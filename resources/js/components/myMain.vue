@@ -6,7 +6,7 @@
                 <div class="card mb-3">
                     <div class="card-body">
                         <h5 class="card-title">{{ post.title }}</h5>
-                        <p class="card-text">{{ post.content }}</p>
+                        <p class="card-text">{{ post.content.slice(0,10) }} ...</p>
                         <a href="#" class="btn btn-primary">Continua la lettura</a>
                     </div>
                 </div>
