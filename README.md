@@ -103,4 +103,11 @@ La relazione è di uno (categoies) a molti (posts). La tabella dipendente è dun
 
 # Passo a Vue
 - axios- require axios in front.js
-- creo component main per app.vue - qui farò chiamata axios
+- creo component main per app.vue - qui farò chiamata axios 
+- gestione chiamata axios per category_id -> non solo l'id ma tutto l'oggetto, in api Home controller modifiche
+- gestione visualizzazione massimo 4 per pagina ->paginate-> nella chiamata axios bisogna dirlgi quale è la pagina corrente
+- In vue imposto nei data la pagina corrente
+- nella chiamata axios do come parametro aggiuntivo la pagina corrente page: this.currentPage
+- Cambia la rispota axios, non più response.data, ma controllo console.log(response) e adeguo di conseguenza
+- Inserisco i bottoni per cambio pagina -> al click richiama la funzione di getApi con una pagina minore o maggiore a seconda se clicco avanti o indietro
+- Con classe 'disable' in bootstrap si vieta al pulsante la interazione

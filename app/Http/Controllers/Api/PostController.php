@@ -16,12 +16,15 @@ class PostController extends Controller
     public function index()
     {
         //con chiamata al db prelevo tutti i post
-        $posts = Post::all();
+        // $posts = Post::all();
+        // questo non stamperebbe le categorie, ma solamente l'id di categoty, per risolvere
+        $posts = Post::with(['category'])->paginate(4);
+        
 
         //ritorno un json
         return response()->json(
             [
-                'data' => $posts,
+                'results' => $posts,
                 'success'=> true,
             ]
         );

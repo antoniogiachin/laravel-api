@@ -1,6 +1,5 @@
 <template>
   <div class="container mt-5 text-center">
-      <h1>Post presenti nel sito</h1>
       <myMain/>
   </div>
 </template>

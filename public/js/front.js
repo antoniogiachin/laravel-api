@@ -1915,7 +1915,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
  // importo component
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1942,25 +1941,59 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'myMain',
   //data
   data: function data() {
-    return {};
+    return {
+      posts: [],
+      // pagina corrente: di default quella iniziale : 1
+      currentPage: 1,
+      lastPage: null
+    };
   },
   methods: {
     // metodo per chiamata axios
-    getApi: function getApi() {
+    getApi: function getApi(page) {
+      var _this = this;
+
       //rotta definita in api.php
-      axios.get('/api/posts').then(function (response) {
+      axios.get('/api/posts', {
+        // secondo parametro di pagina corrente
+        'params': {
+          'page': page
+        }
+      }).then(function (response) {
         // handle success
-        console.log(response);
+        console.log(response); // store in data della risposta
+        // this.posts = data.results.data;
+
+        _this.posts = response.data.results.data;
+        _this.currentPage = response.data.results.current_page;
+        _this.lastPage = response.data.results.last_page;
+        console.log(response.data.results.last_page);
       });
     }
   },
   // alla creazione lancia chiamata axios
   created: function created() {
-    this.getApi();
+    this.getApi(this.currentPage);
   }
 });
 
@@ -2452,7 +2485,7 @@ var render = function () {
   return _c(
     "div",
     { staticClass: "container mt-5 text-center" },
-    [_c("h1", [_vm._v("Post presenti nel sito")]), _vm._v(" "), _c("myMain")],
+    [_c("myMain")],
     1
   )
 }
@@ -2478,16 +2511,70 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("main", [
+    _c("h1", { staticClass: "mb-3" }, [_vm._v("Post presenti nel sito")]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "row row-cols-2 row-md-cols-3 row-cols-lg-4" },
+      _vm._l(_vm.posts, function (post) {
+        return _c("div", { key: post.id, staticClass: "col" }, [
+          _c("div", { staticClass: "card mb-3" }, [
+            _c("div", { staticClass: "card-body" }, [
+              _c("h5", { staticClass: "card-title" }, [
+                _vm._v(_vm._s(post.title)),
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "card-text" }, [
+                _vm._v(_vm._s(post.content)),
+              ]),
+              _vm._v(" "),
+              _c(
+                "a",
+                { staticClass: "btn btn-primary", attrs: { href: "#" } },
+                [_vm._v("Continua la lettura")]
+              ),
+            ]),
+          ]),
+        ])
+      }),
+      0
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "d-flex justify-content-center gap-5" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-outline-primary page-item",
+          class: _vm.currentPage == 1 ? "disabled" : "",
+          attrs: { type: "button" },
+          on: {
+            click: function ($event) {
+              return _vm.getApi(_vm.currentPage - 1)
+            },
+          },
+        },
+        [_c("i", { staticClass: "bi bi-chevron-left" }), _vm._v(" Indietro")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-outline-primary page-item",
+          class: _vm.currentPage == _vm.lastPage ? "disabled" : "",
+          attrs: { type: "button" },
+          on: {
+            click: function ($event) {
+              return _vm.getApi(_vm.currentPage + 1)
+            },
+          },
+        },
+        [_vm._v("Avanti "), _c("i", { staticClass: "bi bi-chevron-right" })]
+      ),
+    ]),
+  ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("main", [_c("h1", [_vm._v("posts")])])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
