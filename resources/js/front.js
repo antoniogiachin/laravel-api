@@ -1,4 +1,5 @@
 window.Vue = require('vue');
+window.axios = require('axios');
 
 // importo il componente vue
 import Vue from 'vue';

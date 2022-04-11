@@ -96,3 +96,11 @@ La relazione è di uno (categoies) a molti (posts). La tabella dipendente è dun
 - Nelle show dei post inserisco la data di creazione del post
 
 # Gestione API
+- Creazione controller per API *php artisan make:controller Api/PostController --resource*
+- Lascio nel controller solo public function index
+- nella funzione index prelevo i post tramite query e ritorno all'index un json con data e success booleano su true
+- Imposto le rotte in api.php -> '/api/posts'
+
+# Passo a Vue
+- axios- require axios in front.js
+- creo component main per app.vue - qui farò chiamata axios
